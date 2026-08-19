@@ -203,9 +203,18 @@ export const api = {
   },
 
   async signInLocal(email: string, password: string): Promise<AuthUser> {
-    const hash = await hashPassword(password);
-    const user = listLocalUsers().find((u) => u.email === email.trim().toLowerCase());
-    if (!user || user.passwordHash !== hash) {
+    const users = listLocalUsers();
+    const user = users.find((u) => u.email === email.trim().toLowerCase());
+    // Demo accounts live in this browser's storage, so "not found" nearly always
+    // means the account was created somewhere else rather than mistyped.
+    if (!user) {
+      throw new Error(
+        users.length === 0
+          ? "No account exists in this browser yet. Demo mode keeps accounts on the device that created them, so an account made elsewhere will not work here. Create one below."
+          : "No account with that email in this browser. Demo mode keeps accounts on the device that created them.",
+      );
+    }
+    if (user.passwordHash !== (await hashPassword(password))) {
       throw new Error("Invalid email or password.");
     }
     setLocalSession(user.id);

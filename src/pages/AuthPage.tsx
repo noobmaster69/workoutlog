@@ -1,6 +1,6 @@
 import { FormEvent, useMemo, useState } from "react";
 import { Link, Navigate, useSearchParams } from "react-router-dom";
-import { Button, Card, ErrorBanner, Field, Input } from "../components/ui";
+import { Button, Card, ErrorBanner, Field, Input, NoticeBanner } from "../components/ui";
 import { useAuth } from "../context/AuthContext";
 
 export function AuthPage() {
@@ -18,7 +18,7 @@ export function AuthPage() {
     () =>
       mode === "supabase"
         ? "Accounts are stored in your Supabase project."
-        : "Supabase keys are not set, so this demo stores accounts in this browser.",
+        : "Running without a database.",
     [mode],
   );
 
@@ -55,6 +55,15 @@ export function AuthPage() {
         </Link>
         <h1 className="mt-4 text-3xl">{isSignup ? "Create account" : "Sign in"}</h1>
         <p className="mt-2 text-sm text-mist">{subtitle}</p>
+        {mode === "local" && (
+          <div className="mt-4">
+            <NoticeBanner title="Demo mode — this browser only">
+              Supabase is not configured, so accounts are saved in this browser's storage.
+              An account created here will not exist on another device, browser, or private
+              window, and clearing site data deletes it.
+            </NoticeBanner>
+          </div>
+        )}
         <form className="mt-6 grid gap-4" onSubmit={onSubmit}>
           {isSignup && (
             <Field label="Display name">

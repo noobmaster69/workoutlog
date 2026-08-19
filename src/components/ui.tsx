@@ -66,6 +66,15 @@ export function ErrorBanner({ message }: { message: string | null }) {
   );
 }
 
+export function NoticeBanner({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className="rounded-xl border border-gold/40 bg-gold/10 px-3 py-2.5 text-sm">
+      <p className="font-semibold text-gold">{title}</p>
+      <div className="mt-1 text-mist">{children}</div>
+    </div>
+  );
+}
+
 export function EmptyState({ title, body }: { title: string; body: string }) {
   return (
     <div className="rounded-2xl border border-dashed border-line px-6 py-10 text-center">

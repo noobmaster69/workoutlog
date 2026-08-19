@@ -6,6 +6,11 @@ A React workout logger for **weights** and **cardio**, with accounts, goal setti
 
 The public homepage is a marketing landing page meant for [Vercel](https://vercel.com). Signed-in users log sessions against [Supabase](https://supabase.com) (Auth + Postgres). If Supabase env vars are missing, the app still runs in a local demo mode using the browser.
 
+> **Accounts only sync across devices when Supabase is configured.** In demo mode every
+> account and workout lives in one browser's `localStorage`, so signing in from a second
+> machine will fail — the account simply is not there. Set the two environment variables
+> below to get real, shared accounts.
+
 ## Features
 
 - **Accounts** — email and password sign up / sign in
