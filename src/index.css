@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Oswald", sans-serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #0b0c10;
+  --color-ink-2: #12141a;
+  --color-panel: #191c24;
+  --color-line: #2c3140;
+  --color-gold: #e3b45b;
+  --color-gold-2: #f0d19a;
+  --color-ember: #d4522a;
+  --color-foam: #e8eef2;
+  --color-mist: #8d96a6;
+  --color-moss: #6fbf9a;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgba(212, 82, 42, 0.16), transparent 50%),
+    radial-gradient(900px 400px at 100% 0%, rgba(227, 180, 91, 0.12), transparent 45%),
+    #0b0c10;
+  color: var(--color-foam);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+.display {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: #111;
+}
+
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+.grid-noise {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
