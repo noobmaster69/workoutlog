@@ -14,6 +14,9 @@ export function currentStreak(logs: HabitLog[], habit: Habit, today = todayISODa
   if (habit.cadence === "weekly") {
     let streak = 0;
     let cursor = startOfWeek(parseISODate(today));
+    if (countInWeek(dates, cursor) < habit.targetPerPeriod) {
+      cursor = addDays(cursor, -7);
+    }
     while (countInWeek(dates, cursor) >= habit.targetPerPeriod) {
       streak += 1;
       cursor = addDays(cursor, -7);

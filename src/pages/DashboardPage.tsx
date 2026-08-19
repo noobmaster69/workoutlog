@@ -34,7 +34,7 @@ export function DashboardPage() {
             <Stat label="Sessions this week" value={String(weekWorkouts.length)} />
             <Stat label="Active goals" value={String(activeGoals.length)} />
             <Stat
-              label="Habits due today"
+              label="Habits on target"
               value={`${habits.filter((h) => completedThisPeriod(habitLogs, h, today) >= h.targetPerPeriod).length}/${habits.length || 0}`}
             />
           </div>
@@ -81,7 +81,8 @@ export function DashboardPage() {
                       <div>
                         <p className="font-semibold">{habit.name}</p>
                         <p className="text-xs text-mist">
-                          {completedThisPeriod(habitLogs, habit, today)}/{habit.targetPerPeriod} · {currentStreak(habitLogs, habit)} day streak
+                          {completedThisPeriod(habitLogs, habit, today)}/{habit.targetPerPeriod} ·{" "}
+                          {currentStreak(habitLogs, habit)} {habit.cadence === "weekly" ? "week" : "day"} streak
                         </p>
                       </div>
                       <span className={completedThisPeriod(habitLogs, habit, today) >= habit.targetPerPeriod ? "text-moss" : "text-mist"}>

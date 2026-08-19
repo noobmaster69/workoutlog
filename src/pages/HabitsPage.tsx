@@ -3,7 +3,7 @@ import { Button, Card, EmptyState, ErrorBanner, Field, Input, Select } from "../
 import { useAuth } from "../context/AuthContext";
 import { useAppData } from "../hooks/useAppData";
 import { api } from "../lib/api";
-import { todayISODate } from "../lib/dates";
+import { formatPrettyDate, todayISODate } from "../lib/dates";
 import { completedThisPeriod, currentStreak, isLoggedOn, lastNDays } from "../lib/habits";
 import type { HabitCadence } from "../lib/types";
 
@@ -112,6 +112,8 @@ export function HabitsPage() {
                         type="button"
                         key={day}
                         title={day}
+                        aria-pressed={on}
+                        aria-label={`${habit.name} on ${formatPrettyDate(day)}: ${on ? "checked in" : "not checked in"}`}
                         className={`h-8 w-8 rounded-md text-[10px] ${on ? "bg-gold text-ink" : "bg-ink text-mist"}`}
                         onClick={async () => {
                           if (!user) return;
