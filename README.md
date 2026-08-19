@@ -2,6 +2,8 @@
 
 A React workout logger for **weights** and **cardio**, with accounts, goal setting, habit tracking, and a YouTube form video on every exercise.
 
+**Live:** [workoutlog-seven.vercel.app](https://workoutlog-seven.vercel.app)
+
 The public homepage is a marketing landing page meant for [Vercel](https://vercel.com). Signed-in users log sessions against [Supabase](https://supabase.com) (Auth + Postgres). If Supabase env vars are missing, the app still runs in a local demo mode using the browser.
 
 ## Features
@@ -46,12 +48,23 @@ VITE_SUPABASE_ANON_KEY=YOUR_ANON_OR_PUBLISHABLE_KEY
 
 These values are safe to expose in the Vite bundle. Access is enforced by RLS: users only see their own workouts, goals, and habits.
 
-## Deploy the front page on Vercel
+## Deploy on Vercel
 
-1. Push this repo to GitHub.
-2. In Vercel: **Add New → Project** and import the repo. Framework preset: **Vite**.
-3. Add the same `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` environment variables.
-4. Deploy. Vercel serves `dist/` and `vercel.json` rewrites unknown paths to `index.html` so React Router works.
+The repo is already linked to a Vercel project, so pushes to `master` deploy to
+production and pushes to any other branch get a preview URL. Nothing to run by hand.
+
+To point a fresh Vercel project at this repo instead:
+
+1. In Vercel: **Add New → Project** and import the repo. Framework preset: **Vite**.
+2. Add the `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` environment variables.
+3. Deploy. Vercel serves `dist/`, and `vercel.json` rewrites unknown paths to
+   `index.html` so React Router works.
+
+`vercel.json` also caches hashed files under `/assets/` for a year as immutable and
+sets `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, and
+`Permissions-Policy` on every response.
+
+Without the Supabase variables the deployment still runs, in browser-local demo mode.
 
 In the [Supabase Auth URL config](https://supabase.com/dashboard/project/_/auth/url-configuration), add your Vercel domain (and `http://localhost:5173` for local) to **Site URL** and **Redirect URLs**.
 
