@@ -9,11 +9,13 @@ export default defineConfig({
     port: 5173,
   },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom", "react-router-dom"],
-          supabase: ["@supabase/supabase-js"],
+        codeSplitting: {
+          groups: [
+            { name: "react", test: /node_modules[\\/](?:react|react-dom|react-router-dom)[\\/]/ },
+            { name: "supabase", test: /node_modules[\\/]@supabase[\\/]/ },
+          ],
         },
       },
     },
