@@ -45,7 +45,7 @@ export const EXERCISE_CATALOG: CatalogExercise[] = [
     name: "Romanian deadlift",
     kind: "weights",
     bodyPart: "legs",
-    youtubeId: "lKLYvNGz6mk",
+    youtubeId: "7j-2w4-P14I",
     searchQuery: "romanian deadlift",
     cue: "Hips back, bar close, hamstrings loaded.",
   },

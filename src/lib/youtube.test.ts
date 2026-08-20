@@ -14,6 +14,12 @@ describe("youtube helpers", () => {
     expect(extractYoutubeId("https://www.youtube.com/embed/dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
   });
 
+  it("ignores the tracking parameters on a copied share link", () => {
+    // Exactly what the YouTube share button hands you.
+    expect(extractYoutubeId("https://youtu.be/7j-2w4-P14I?is=UdXoQlnMVVeRnVXC")).toBe("7j-2w4-P14I");
+    expect(extractYoutubeId("https://www.youtube.com/watch?v=7j-2w4-P14I&t=42s")).toBe("7j-2w4-P14I");
+  });
+
   it("builds a form-video search url when no clip is known", () => {
     const video = resolveWorkoutVideo({ searchQuery: "goblet squat" });
     expect(video.url).toBe(youtubeSearchUrl("goblet squat"));
