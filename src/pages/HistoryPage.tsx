@@ -1,16 +1,45 @@
 import { useMemo, useState } from "react";
+import { Download } from "lucide-react";
 import { YoutubeEmbed } from "../components/YoutubeEmbed";
 import { Button, Card, EmptyState, ErrorBanner, SelectField } from "../components/ui";
+import { useAuth } from "../context/AuthContext";
 import { useAppData } from "../hooks/useAppData";
 import { api } from "../lib/api";
 import { formatPrettyDate } from "../lib/dates";
 import { findExercise, labelBodyPart, labelCardio } from "../lib/exercises";
+import { exportToExcel } from "../lib/export";
 import type { WorkoutKind } from "../lib/types";
 
 export function HistoryPage() {
-  const { workouts, loading, error, reload } = useAppData();
+  const { user } = useAuth();
+  const { workouts, goals, habits, habitLogs, loading, error, reload } = useAppData();
   const [kind, setKind] = useState<WorkoutKind | "all">("all");
   const [openId, setOpenId] = useState<string | null>(null);
+  const [exporting, setExporting] = useState(false);
+  const [exportError, setExportError] = useState<string | null>(null);
+
+  const hasData =
+    workouts.length > 0 || goals.length > 0 || habits.length > 0 || habitLogs.length > 0;
+
+  async function onExport() {
+    if (!user) return;
+    setExportError(null);
+    setExporting(true);
+    try {
+      await exportToExcel({
+        displayName: user.displayName,
+        email: user.email,
+        workouts,
+        goals,
+        habits,
+        habitLogs,
+      });
+    } catch (err) {
+      setExportError(err instanceof Error ? err.message : "Could not build the spreadsheet.");
+    } finally {
+      setExporting(false);
+    }
+  }
 
   const filtered = useMemo(
     () => workouts.filter((w) => (kind === "all" ? true : w.kind === kind)),
@@ -24,10 +53,21 @@ export function HistoryPage() {
 
   return (
     <div className="grid gap-6">
-      <div>
-        <p className="text-xs uppercase tracking-[0.2em] text-cta">Archive</p>
-        <h1 className="mt-1 text-3xl">Workout history</h1>
-      </div>
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p className="text-xs uppercase tracking-[0.2em] text-cta">Archive</p>
+          <h1 className="mt-1 text-3xl">Workout history</h1>
+        </div>
+        <Button variant="ghost" onClick={onExport} disabled={exporting || loading || !hasData}>
+          <Download size={16} />
+          {exporting ? "Building…" : "Export to Excel"}
+        </Button>
+      </header>
+      <p className="-mt-3 text-xs text-mist">
+        The export covers everything — sessions, exercises, goals, habits, and check-ins — as a
+        formatted .xlsx workbook.
+      </p>
+      <ErrorBanner message={exportError} />
       <SelectField
         label="Show"
         value={kind}
