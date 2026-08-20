@@ -43,7 +43,8 @@ export function Field({
 }
 
 const control =
-  "w-full rounded-xl border border-line bg-ink-2 px-3 py-2.5 text-foam outline-none focus:border-gold";
+  // text-base (16px) is deliberate: iOS Safari auto-zooms any focused control under 16px.
+  "w-full rounded-xl border border-line bg-ink-2 px-3 py-2.5 text-base text-foam outline-none focus:border-gold";
 
 export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
   return <input className={control} {...props} />;

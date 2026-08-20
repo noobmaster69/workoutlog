@@ -26,7 +26,7 @@ export function AppLayout() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen lg:grid lg:grid-cols-[240px_1fr]">
+    <div className="min-h-dvh lg:grid lg:grid-cols-[240px_1fr]">
       <aside className="hidden border-r border-line bg-ink-2/80 p-5 lg:flex lg:flex-col">
         <NavLink to="/app" className="display text-2xl text-gold">
           IronLog
@@ -65,24 +65,42 @@ export function AppLayout() {
         </div>
       </aside>
 
-      <div className="pb-24 lg:pb-0">
-        <header className="flex items-center justify-between border-b border-line px-4 py-3 lg:hidden">
-          <span className="display text-xl text-gold">IronLog</span>
-          <HeartPulse className="text-ember" size={20} />
+      <div className="pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-0">
+        <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 lg:hidden">
+          <div className="flex min-w-0 items-center gap-2">
+            <HeartPulse className="shrink-0 text-ember" size={18} />
+            <span className="display text-xl text-gold">IronLog</span>
+          </div>
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="min-w-0 truncate text-xs text-mist">{user?.displayName}</span>
+            <button
+              type="button"
+              aria-label="Sign out"
+              className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-line text-mist"
+              onClick={async () => {
+                await signOut();
+                navigate("/");
+              }}
+            >
+              <LogOut size={18} />
+            </button>
+          </div>
         </header>
         <main className="mx-auto w-full max-w-5xl px-4 py-6">
           <Outlet />
         </main>
       </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-6 border-t border-line bg-ink-2/95 px-1 py-2 backdrop-blur lg:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-20 grid grid-cols-6 border-t border-line bg-ink-2/95 px-1 pt-1.5 pb-[calc(0.375rem+env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
         {links.map((link) => (
           <NavLink
             key={link.to}
             to={link.to}
             end={link.end}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-1 text-[10px] ${isActive ? "text-gold" : "text-mist"}`
+              `flex min-h-11 flex-col items-center justify-center gap-1 rounded-lg text-[11px] ${
+                isActive ? "text-gold" : "text-mist"
+              }`
             }
           >
             <link.icon size={18} />

@@ -30,7 +30,7 @@ export function DashboardPage() {
         <p className="text-mist">Loading…</p>
       ) : (
         <>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4">
             <Stat label="Sessions this week" value={String(weekWorkouts.length)} />
             <Stat label="Active goals" value={String(activeGoals.length)} />
             <Stat
@@ -130,10 +130,13 @@ export function DashboardPage() {
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
+  // Not a Card: the three stats sit side by side on a phone, so they need tighter padding.
   return (
-    <Card>
-      <p className="text-xs uppercase tracking-widest text-mist">{label}</p>
-      <p className="mt-2 display text-4xl text-gold">{value}</p>
-    </Card>
+    <div className="rounded-2xl border border-line bg-panel/90 p-3 shadow-[0_20px_50px_rgba(0,0,0,0.25)] sm:p-5">
+      <p className="text-[10px] uppercase leading-tight tracking-wider text-mist sm:text-xs sm:tracking-widest">
+        {label}
+      </p>
+      <p className="mt-1 display text-2xl text-gold sm:mt-2 sm:text-4xl">{value}</p>
+    </div>
   );
 }

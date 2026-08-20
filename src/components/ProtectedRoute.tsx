@@ -6,7 +6,7 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
   if (loading) {
     return (
-      <div className="grid min-h-screen place-items-center text-mist">
+      <div className="grid min-h-dvh place-items-center text-mist">
         Loading your training log…
       </div>
     );

@@ -21,6 +21,12 @@ body,
   min-height: 100%;
 }
 
+html {
+  /* iOS Safari otherwise scales text up in landscape. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   background:

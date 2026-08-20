@@ -48,7 +48,7 @@ export function AuthPage() {
   }
 
   return (
-    <div className="grid min-h-screen place-items-center px-4">
+    <div className="grid min-h-dvh place-items-center px-4">
       <Card className="w-full max-w-md">
         <Link to="/" className="display text-2xl text-gold">
           IronLog
