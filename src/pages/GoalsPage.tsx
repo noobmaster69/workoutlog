@@ -40,7 +40,7 @@ export function GoalsPage() {
   return (
     <div className="grid gap-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.2em] text-ember">Aim</p>
+        <p className="text-sm uppercase tracking-[0.2em] text-cta">Aim</p>
         <h1 className="text-4xl">Goals</h1>
       </div>
       <Card>
@@ -95,7 +95,7 @@ export function GoalsPage() {
                       {goal.deadline ? ` · due ${goal.deadline}` : ""}
                     </p>
                     <div className="mt-3 h-2 overflow-hidden rounded-full bg-ink">
-                      <div className="h-full bg-gold" style={{ width: `${pct}%` }} />
+                      <div className="h-full bg-accent" style={{ width: `${pct}%` }} />
                     </div>
                     <div className="mt-3 flex flex-wrap gap-2">
                       <Button
@@ -113,7 +113,7 @@ export function GoalsPage() {
                       </Button>
                       {goal.status !== "completed" && (
                         <Button
-                          variant="gold"
+                          variant="accent"
                           onClick={async () => {
                             await api.updateGoal(goal.id, { status: "completed", currentValue: goal.targetValue });
                             await reload();

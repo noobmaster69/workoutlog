@@ -23,7 +23,7 @@ export function LibraryPage() {
   return (
     <div className="grid gap-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.2em] text-ember">Form</p>
+        <p className="text-sm uppercase tracking-[0.2em] text-cta">Form</p>
         <h1 className="text-4xl">Exercise library</h1>
         <p className="mt-2 max-w-2xl text-sm text-mist">
           Every catalog movement has a YouTube form video. Logging a workout pulls the matching clip
@@ -32,7 +32,7 @@ export function LibraryPage() {
       </div>
       <div className="flex flex-wrap gap-2">
         {(["all", "weights", "cardio"] as const).map((value) => (
-          <Button key={value} variant={kind === value ? "gold" : "ghost"} onClick={() => setKind(value)}>
+          <Button key={value} variant={kind === value ? "accent" : "ghost"} onClick={() => setKind(value)}>
             {value === "all" ? "All" : value === "weights" ? "Weights" : "Cardio"}
           </Button>
         ))}

@@ -25,12 +25,12 @@ export function HistoryPage() {
   return (
     <div className="grid gap-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.2em] text-ember">Archive</p>
+        <p className="text-sm uppercase tracking-[0.2em] text-cta">Archive</p>
         <h1 className="text-4xl">Workout history</h1>
       </div>
       <div className="flex flex-wrap gap-2">
         {(["all", "weights", "cardio"] as const).map((value) => (
-          <Button key={value} variant={kind === value ? "gold" : "ghost"} onClick={() => setKind(value)}>
+          <Button key={value} variant={kind === value ? "accent" : "ghost"} onClick={() => setKind(value)}>
             {value === "all" ? "All" : value === "weights" ? "Weights" : "Cardio"}
           </Button>
         ))}

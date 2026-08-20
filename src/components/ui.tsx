@@ -9,15 +9,15 @@ export function Card({ children, className = "" }: { children: ReactNode; classN
 }
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "ghost" | "danger" | "gold";
+  variant?: "primary" | "ghost" | "danger" | "accent";
 };
 
 export function Button({ variant = "primary", className = "", ...props }: ButtonProps) {
   const styles = {
-    primary: "bg-ember text-white hover:bg-[#c24622]",
-    gold: "bg-gold text-ink hover:bg-gold-2",
-    ghost: "bg-transparent border border-line text-foam hover:border-gold/50",
-    danger: "bg-transparent border border-ember/40 text-ember hover:bg-ember/10",
+    primary: "bg-cta text-ink hover:bg-cta-2",
+    accent: "bg-accent text-ink hover:bg-accent-2",
+    ghost: "bg-transparent border border-line text-foam hover:border-accent/50",
+    danger: "bg-transparent border border-danger/40 text-danger hover:bg-danger/10",
   }[variant];
   return (
     <button
@@ -44,7 +44,7 @@ export function Field({
 
 const control =
   // text-base (16px) is deliberate: iOS Safari auto-zooms any focused control under 16px.
-  "w-full rounded-xl border border-line bg-ink-2 px-3 py-2.5 text-base text-foam outline-none focus:border-gold";
+  "w-full rounded-xl border border-line bg-ink-2 px-3 py-2.5 text-base text-foam outline-none focus:border-accent";
 
 export function Input(props: InputHTMLAttributes<HTMLInputElement>) {
   return <input className={control} {...props} />;
@@ -61,7 +61,7 @@ export function Textarea(props: TextareaHTMLAttributes<HTMLTextAreaElement>) {
 export function ErrorBanner({ message }: { message: string | null }) {
   if (!message) return null;
   return (
-    <p className="rounded-xl border border-ember/40 bg-ember/10 px-3 py-2 text-sm text-ember" role="alert">
+    <p className="rounded-xl border border-danger/40 bg-danger/10 px-3 py-2 text-sm text-danger" role="alert">
       {message}
     </p>
   );
@@ -69,8 +69,8 @@ export function ErrorBanner({ message }: { message: string | null }) {
 
 export function NoticeBanner({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div className="rounded-xl border border-gold/40 bg-gold/10 px-3 py-2.5 text-sm">
-      <p className="font-semibold text-gold">{title}</p>
+    <div className="rounded-xl border border-accent/40 bg-accent/10 px-3 py-2.5 text-sm">
+      <p className="font-semibold text-accent">{title}</p>
       <div className="mt-1 text-mist">{children}</div>
     </div>
   );
@@ -79,7 +79,7 @@ export function NoticeBanner({ title, children }: { title: string; children: Rea
 export function EmptyState({ title, body }: { title: string; body: string }) {
   return (
     <div className="rounded-2xl border border-dashed border-line px-6 py-10 text-center">
-      <p className="display text-xl text-gold">{title}</p>
+      <p className="display text-xl text-accent">{title}</p>
       <p className="mt-2 text-sm text-mist">{body}</p>
     </div>
   );

@@ -37,7 +37,7 @@ export function HabitsPage() {
   return (
     <div className="grid gap-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.2em] text-ember">Consistency</p>
+        <p className="text-sm uppercase tracking-[0.2em] text-cta">Consistency</p>
         <h1 className="text-4xl">Habit tracking</h1>
       </div>
       <Card>
@@ -84,7 +84,7 @@ export function HabitsPage() {
                   </div>
                   <div className="flex gap-2">
                     <Button
-                      variant="gold"
+                      variant="accent"
                       onClick={async () => {
                         if (!user) return;
                         await api.toggleHabitLog(user.id, habit.id, todayISODate());
@@ -114,7 +114,7 @@ export function HabitsPage() {
                         title={day}
                         aria-pressed={on}
                         aria-label={`${habit.name} on ${formatPrettyDate(day)}: ${on ? "checked in" : "not checked in"}`}
-                        className={`h-8 w-8 rounded-md text-[10px] ${on ? "bg-gold text-ink" : "bg-ink text-mist"}`}
+                        className={`h-8 w-8 rounded-md text-[10px] ${on ? "bg-accent text-ink" : "bg-ink text-mist"}`}
                         onClick={async () => {
                           if (!user) return;
                           await api.toggleHabitLog(user.id, habit.id, day);

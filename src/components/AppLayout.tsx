@@ -28,7 +28,7 @@ export function AppLayout() {
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[240px_1fr]">
       <aside className="hidden border-r border-line bg-ink-2/80 p-5 lg:flex lg:flex-col">
-        <NavLink to="/app" className="display text-2xl text-gold">
+        <NavLink to="/app" className="display text-2xl text-accent">
           IronLog
         </NavLink>
         <p className="mt-1 text-xs text-mist">
@@ -42,7 +42,7 @@ export function AppLayout() {
               end={link.end}
               className={({ isActive }) =>
                 `flex items-center gap-3 rounded-xl px-3 py-2 text-sm ${
-                  isActive ? "bg-panel text-gold" : "text-mist hover:text-foam"
+                  isActive ? "bg-panel text-accent" : "text-mist hover:text-foam"
                 }`
               }
             >
@@ -68,8 +68,8 @@ export function AppLayout() {
       <div className="pb-[calc(6rem+env(safe-area-inset-bottom))] lg:pb-0">
         <header className="flex items-center justify-between gap-3 border-b border-line px-4 py-3 lg:hidden">
           <div className="flex min-w-0 items-center gap-2">
-            <HeartPulse className="shrink-0 text-ember" size={18} />
-            <span className="display text-xl text-gold">IronLog</span>
+            <HeartPulse className="shrink-0 text-cta" size={18} />
+            <span className="display text-xl text-accent">IronLog</span>
           </div>
           <div className="flex min-w-0 items-center gap-2">
             <span className="min-w-0 truncate text-xs text-mist">{user?.displayName}</span>
@@ -99,7 +99,7 @@ export function AppLayout() {
             end={link.end}
             className={({ isActive }) =>
               `flex min-h-11 flex-col items-center justify-center gap-1 rounded-lg text-[11px] ${
-                isActive ? "text-gold" : "text-mist"
+                isActive ? "text-accent" : "text-mist"
               }`
             }
           >

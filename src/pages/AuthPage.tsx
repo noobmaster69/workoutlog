@@ -50,7 +50,7 @@ export function AuthPage() {
   return (
     <div className="grid min-h-dvh place-items-center px-4">
       <Card className="w-full max-w-md">
-        <Link to="/" className="display text-2xl text-gold">
+        <Link to="/" className="display text-2xl text-accent">
           IronLog
         </Link>
         <h1 className="mt-4 text-3xl">{isSignup ? "Create account" : "Sign in"}</h1>
@@ -83,14 +83,14 @@ export function AuthPage() {
             />
           </Field>
           <ErrorBanner message={error} />
-          {notice && <p className="rounded-xl border border-moss/40 bg-moss/10 px-3 py-2 text-sm text-moss">{notice}</p>}
+          {notice && <p className="rounded-xl border border-success/40 bg-success/10 px-3 py-2 text-sm text-success">{notice}</p>}
           <Button type="submit" disabled={busy}>
             {busy ? "Working…" : isSignup ? "Create account" : "Sign in"}
           </Button>
         </form>
         <button
           type="button"
-          className="mt-4 text-sm text-gold"
+          className="mt-4 text-sm text-accent"
           onClick={() => {
             setIsSignup((v) => !v);
             setError(null);

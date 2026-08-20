@@ -29,7 +29,7 @@ export function YoutubeEmbed({
           href={video.url}
           target="_blank"
           rel="noreferrer"
-          className="block px-3 py-2 text-xs text-gold hover:text-gold-2"
+          className="block px-3 py-2 text-xs text-accent hover:text-accent-2"
         >
           Open on YouTube
         </a>
@@ -42,13 +42,13 @@ export function YoutubeEmbed({
       href={video.url}
       target="_blank"
       rel="noreferrer"
-      className="flex items-center justify-between gap-3 rounded-xl border border-line bg-ink px-4 py-3 hover:border-gold/50"
+      className="flex items-center justify-between gap-3 rounded-xl border border-line bg-ink px-4 py-3 hover:border-accent/50"
     >
       <div>
         <p className="text-sm font-semibold">Watch form video</p>
         <p className="text-xs text-mist">Opens a YouTube search for {title}</p>
       </div>
-      <span className="text-gold">▶</span>
+      <span className="text-accent">▶</span>
     </a>
   );
 }

@@ -21,7 +21,7 @@ export class ErrorBoundary extends Component<Props, State> {
     return (
       <div className="grid min-h-dvh place-items-center px-4">
         <div className="w-full max-w-md rounded-2xl border border-line bg-panel/90 p-6 text-center">
-          <p className="display text-2xl text-gold">Something broke</p>
+          <p className="display text-2xl text-accent">Something broke</p>
           <p className="mt-2 text-sm text-mist">
             The page hit an unexpected error. Reloading usually clears it.
           </p>
@@ -30,7 +30,7 @@ export class ErrorBoundary extends Component<Props, State> {
           </p>
           <button
             type="button"
-            className="mt-5 inline-flex items-center justify-center rounded-xl bg-gold px-4 py-2.5 text-sm font-semibold text-ink hover:bg-gold-2"
+            className="mt-5 inline-flex items-center justify-center rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-ink hover:bg-accent-2"
             onClick={() => window.location.reload()}
           >
             Reload

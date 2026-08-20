@@ -143,7 +143,7 @@ export function LogWorkoutPage() {
   return (
     <form className="grid gap-6" onSubmit={onSubmit}>
       <div>
-        <p className="text-sm uppercase tracking-[0.2em] text-ember">New session</p>
+        <p className="text-sm uppercase tracking-[0.2em] text-cta">New session</p>
         <h1 className="text-4xl">Log a workout</h1>
       </div>
 
@@ -161,7 +161,7 @@ export function LogWorkoutPage() {
                 key={part.id}
                 onClick={() => applyBodyPart(part.id)}
                 className={`rounded-xl border px-3 py-3 text-left ${
-                  bodyPart === part.id ? "border-gold bg-gold/10" : "border-line"
+                  bodyPart === part.id ? "border-accent bg-accent/10" : "border-line"
                 }`}
               >
                 <p className="font-semibold">{part.label}</p>
@@ -177,7 +177,7 @@ export function LogWorkoutPage() {
                 key={type.id}
                 onClick={() => applyCardioType(type.id)}
                 className={`rounded-xl border px-3 py-3 text-left ${
-                  cardioType === type.id ? "border-gold bg-gold/10" : "border-line"
+                  cardioType === type.id ? "border-accent bg-accent/10" : "border-line"
                 }`}
               >
                 <p className="font-semibold">{type.label}</p>
@@ -355,7 +355,7 @@ function KindButton({
     <button
       type="button"
       onClick={onClick}
-      className={`rounded-2xl border px-4 py-4 text-left ${active ? "border-ember bg-ember/10" : "border-line"}`}
+      className={`rounded-2xl border px-4 py-4 text-left ${active ? "border-cta bg-cta/10" : "border-line"}`}
     >
       <p className="display text-2xl">{label}</p>
       <p className="text-sm text-mist">{hint}</p>

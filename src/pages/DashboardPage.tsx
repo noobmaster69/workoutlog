@@ -18,7 +18,7 @@ export function DashboardPage() {
     <div className="grid gap-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-sm uppercase tracking-[0.2em] text-ember">Today</p>
+          <p className="text-sm uppercase tracking-[0.2em] text-cta">Today</p>
           <h1 className="text-4xl">{user?.displayName}, train.</h1>
         </div>
         <Link to="/app/log">
@@ -43,7 +43,7 @@ export function DashboardPage() {
             <Card>
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-2xl">Recent sessions</h2>
-                <Link to="/app/history" className="text-sm text-gold">
+                <Link to="/app/history" className="text-sm text-accent">
                   History
                 </Link>
               </div>
@@ -68,7 +68,7 @@ export function DashboardPage() {
             <Card>
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-2xl">Habits</h2>
-                <Link to="/app/habits" className="text-sm text-gold">
+                <Link to="/app/habits" className="text-sm text-accent">
                   Track
                 </Link>
               </div>
@@ -85,7 +85,7 @@ export function DashboardPage() {
                           {currentStreak(habitLogs, habit)} {habit.cadence === "weekly" ? "week" : "day"} streak
                         </p>
                       </div>
-                      <span className={completedThisPeriod(habitLogs, habit, today) >= habit.targetPerPeriod ? "text-moss" : "text-mist"}>
+                      <span className={completedThisPeriod(habitLogs, habit, today) >= habit.targetPerPeriod ? "text-success" : "text-mist"}>
                         {completedThisPeriod(habitLogs, habit, today) >= habit.targetPerPeriod ? "Done" : "Open"}
                       </span>
                     </li>
@@ -98,7 +98,7 @@ export function DashboardPage() {
           <Card>
             <div className="mb-4 flex items-center justify-between">
               <h2 className="text-2xl">Goals</h2>
-              <Link to="/app/goals" className="text-sm text-gold">
+              <Link to="/app/goals" className="text-sm text-accent">
                 Manage
               </Link>
             </div>
@@ -115,7 +115,7 @@ export function DashboardPage() {
                         {goal.currentValue} / {goal.targetValue} {goal.unit}
                       </p>
                       <div className="mt-2 h-2 overflow-hidden rounded-full bg-ink">
-                        <div className="h-full bg-gold" style={{ width: `${pct}%` }} />
+                        <div className="h-full bg-accent" style={{ width: `${pct}%` }} />
                       </div>
                     </div>
                   );
@@ -136,7 +136,7 @@ function Stat({ label, value }: { label: string; value: string }) {
       <p className="text-[10px] uppercase leading-tight tracking-wider text-mist sm:text-xs sm:tracking-widest">
         {label}
       </p>
-      <p className="mt-1 display text-2xl text-gold sm:mt-2 sm:text-4xl">{value}</p>
+      <p className="mt-1 display text-2xl text-accent sm:mt-2 sm:text-4xl">{value}</p>
     </div>
   );
 }
