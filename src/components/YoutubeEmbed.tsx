@@ -1,4 +1,4 @@
-import { resolveWorkoutVideo } from "../lib/youtube";
+import { resolveWorkoutVideo, youtubeSearchUrl } from "../lib/youtube";
 
 export function YoutubeEmbed({
   youtubeUrl,
@@ -25,14 +25,27 @@ export function YoutubeEmbed({
             allowFullScreen
           />
         </div>
-        <a
-          href={video.url}
-          target="_blank"
-          rel="noreferrer"
-          className="block px-3 py-2 text-xs text-accent hover:text-accent-2"
-        >
-          Open on YouTube
-        </a>
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-3 py-2">
+          <a
+            href={video.url}
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs text-accent hover:text-accent-2"
+          >
+            Open on YouTube
+          </a>
+          {/* Clips get deleted, go private, or have embedding turned off, and an
+              iframe cannot tell us cross-origin when that happens. This keeps a
+              dead video one tap from a working search instead of a dead end. */}
+          <a
+            href={youtubeSearchUrl(searchQuery)}
+            target="_blank"
+            rel="noreferrer"
+            className="text-xs text-mist hover:text-foam"
+          >
+            Not playing? Search YouTube
+          </a>
+        </div>
       </div>
     );
   }
