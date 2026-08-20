@@ -1,7 +1,7 @@
 import { FormEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { YoutubeEmbed } from "../components/YoutubeEmbed";
-import { Button, Card, ErrorBanner, Field, Input, Select, Textarea } from "../components/ui";
+import { Button, Card, Disclosure, ErrorBanner, Field, Input, Select, SelectField, Textarea } from "../components/ui";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../lib/api";
 import { todayISODate } from "../lib/dates";
@@ -143,48 +143,24 @@ export function LogWorkoutPage() {
   return (
     <form className="grid gap-6" onSubmit={onSubmit}>
       <div>
-        <p className="text-sm uppercase tracking-[0.2em] text-cta">New session</p>
-        <h1 className="text-4xl">Log a workout</h1>
+        <p className="text-xs uppercase tracking-[0.2em] text-cta">New session</p>
+        <h1 className="mt-1 text-3xl">Log a workout</h1>
       </div>
 
-      <Card>
-        <p className="text-sm text-mist">Type</p>
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          <KindButton active={kind === "weights"} onClick={() => applyKind("weights")} label="Weights" hint="Body-part training" />
-          <KindButton active={kind === "cardio"} onClick={() => applyKind("cardio")} label="Cardio" hint="Run, bike, row…" />
-        </div>
+      <Card className="grid gap-3 sm:grid-cols-2">
+        <SelectField
+          label="Session type"
+          value={kind}
+          onChange={applyKind}
+          options={[
+            { id: "weights" as const, label: "Weights" },
+            { id: "cardio" as const, label: "Cardio" },
+          ]}
+        />
         {kind === "weights" ? (
-          <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            {BODY_PARTS.map((part) => (
-              <button
-                type="button"
-                key={part.id}
-                onClick={() => applyBodyPart(part.id)}
-                className={`rounded-xl border px-3 py-3 text-left ${
-                  bodyPart === part.id ? "border-accent bg-accent/10" : "border-line"
-                }`}
-              >
-                <p className="font-semibold">{part.label}</p>
-                <p className="text-xs text-mist">{part.blurb}</p>
-              </button>
-            ))}
-          </div>
+          <SelectField label="Body part" value={bodyPart} onChange={applyBodyPart} options={BODY_PARTS} />
         ) : (
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-            {CARDIO_TYPES.map((type) => (
-              <button
-                type="button"
-                key={type.id}
-                onClick={() => applyCardioType(type.id)}
-                className={`rounded-xl border px-3 py-3 text-left ${
-                  cardioType === type.id ? "border-accent bg-accent/10" : "border-line"
-                }`}
-              >
-                <p className="font-semibold">{type.label}</p>
-                <p className="text-xs text-mist">{type.blurb}</p>
-              </button>
-            ))}
-          </div>
+          <SelectField label="Discipline" value={cardioType} onChange={applyCardioType} options={CARDIO_TYPES} />
         )}
       </Card>
 
@@ -309,12 +285,14 @@ export function LogWorkoutPage() {
                   </Field>
                 </div>
               )}
-              <YoutubeEmbed
-                youtubeUrl={item.youtubeUrl}
-                youtubeId={found?.youtubeId}
-                searchQuery={found?.searchQuery ?? item.exerciseName}
-                title={item.exerciseName}
-              />
+              <Disclosure summary="Form video" meta={item.exerciseName}>
+                <YoutubeEmbed
+                  youtubeUrl={item.youtubeUrl}
+                  youtubeId={found?.youtubeId}
+                  searchQuery={found?.searchQuery ?? item.exerciseName}
+                  title={item.exerciseName}
+                />
+              </Disclosure>
             </Card>
           );
         })}
@@ -337,28 +315,5 @@ export function LogWorkoutPage() {
         {busy ? "Saving…" : "Save workout"}
       </Button>
     </form>
-  );
-}
-
-function KindButton({
-  active,
-  onClick,
-  label,
-  hint,
-}: {
-  active: boolean;
-  onClick: () => void;
-  label: string;
-  hint: string;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`rounded-2xl border px-4 py-4 text-left ${active ? "border-cta bg-cta/10" : "border-line"}`}
-    >
-      <p className="display text-2xl">{label}</p>
-      <p className="text-sm text-mist">{hint}</p>
-    </button>
   );
 }

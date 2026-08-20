@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { YoutubeEmbed } from "../components/YoutubeEmbed";
-import { Button, Card, EmptyState, ErrorBanner } from "../components/ui";
+import { Button, Card, EmptyState, ErrorBanner, SelectField } from "../components/ui";
 import { useAppData } from "../hooks/useAppData";
 import { api } from "../lib/api";
 import { formatPrettyDate } from "../lib/dates";
@@ -25,16 +25,20 @@ export function HistoryPage() {
   return (
     <div className="grid gap-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.2em] text-cta">Archive</p>
-        <h1 className="text-4xl">Workout history</h1>
+        <p className="text-xs uppercase tracking-[0.2em] text-cta">Archive</p>
+        <h1 className="mt-1 text-3xl">Workout history</h1>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {(["all", "weights", "cardio"] as const).map((value) => (
-          <Button key={value} variant={kind === value ? "accent" : "ghost"} onClick={() => setKind(value)}>
-            {value === "all" ? "All" : value === "weights" ? "Weights" : "Cardio"}
-          </Button>
-        ))}
-      </div>
+      <SelectField
+        label="Show"
+        value={kind}
+        onChange={setKind}
+        options={[
+          { id: "all" as const, label: "All sessions" },
+          { id: "weights" as const, label: "Weights only" },
+          { id: "cardio" as const, label: "Cardio only" },
+        ]}
+        className="sm:max-w-xs"
+      />
       <ErrorBanner message={error} />
       {loading ? (
         <p className="text-mist">Loading…</p>
