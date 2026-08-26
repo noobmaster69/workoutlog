@@ -1,4 +1,5 @@
 import { createId, todayISODate } from "./dates";
+import { ApiError } from "./errors";
 import { findExercise, videoUrlForExercise } from "./exercises";
 import {
   getLocalSession,
@@ -25,8 +26,9 @@ import type {
   WorkoutKind,
 } from "./types";
 
-function fail(error: { message?: string } | null, fallback: string): never {
-  throw new Error(error?.message || fallback);
+function fail(error: { message?: string; code?: string } | null, fallback: string): never {
+  // Keep the code: callers need it to tell a transient PGRST303 from a real failure.
+  throw new ApiError(error?.message || fallback, error?.code);
 }
 
 function num(value: unknown): number | null {
