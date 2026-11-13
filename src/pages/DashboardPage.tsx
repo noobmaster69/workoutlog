@@ -6,6 +6,7 @@ import { useAppData } from "../hooks/useAppData";
 import { formatPrettyDate, startOfWeek, todayISODate } from "../lib/dates";
 import { completedThisPeriod, currentStreak } from "../lib/habits";
 import { labelBodyPart, labelCardio } from "../lib/exercises";
+import { personalRecords, volumeTrend } from "../lib/stats";
 
 export function DashboardPage() {
   const { user } = useAuth();
@@ -17,6 +18,8 @@ export function DashboardPage() {
   const habitsOnTarget = habits.filter(
     (h) => completedThisPeriod(habitLogs, h, today) >= h.targetPerPeriod,
   ).length;
+  const volume = volumeTrend(workouts, today);
+  const records = personalRecords(workouts);
 
   return (
     <div className="grid gap-6">
@@ -41,6 +44,24 @@ export function DashboardPage() {
             <Stat label="Active goals" value={String(activeGoals.length)} />
             <Stat label="Habits on target" value={`${habitsOnTarget}/${habits.length || 0}`} />
           </div>
+
+          {volume.thisWeekKg > 0 && (
+            <p className="-mt-2 text-sm text-mist">
+              <span className="font-semibold text-foam tabular-nums">
+                {Math.round(volume.thisWeekKg).toLocaleString()} kg
+              </span>{" "}
+              lifted this week
+              {volume.changePct !== null && (
+                <>
+                  {" · "}
+                  <span className={volume.changePct >= 0 ? "text-success" : "text-mist"}>
+                    {volume.changePct >= 0 ? "▲" : "▼"} {Math.abs(volume.changePct)}%
+                  </span>{" "}
+                  vs last week
+                </>
+              )}
+            </p>
+          )}
 
           <div className="grid gap-6 lg:grid-cols-2">
             <Section title="Recent sessions" to="/app/history" action="History">
@@ -96,6 +117,31 @@ export function DashboardPage() {
               )}
             </Section>
           </div>
+
+          {records.length > 0 && (
+            <Section title="Personal records" to="/app/history" action="Sessions">
+              <Rows>
+                {records.slice(0, 5).map((pr) => (
+                  <li key={pr.exerciseName} className="flex items-center justify-between gap-3 py-3">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold">{pr.exerciseName}</p>
+                      <p className="mt-0.5 text-xs text-mist">
+                        {pr.heaviestKg} kg × {pr.repsAtHeaviest} · {formatPrettyDate(pr.performedOn)}
+                      </p>
+                    </div>
+                    {pr.estimatedMaxKg !== null && (
+                      <span className="shrink-0 text-right">
+                        <span className="display block text-lg text-accent tabular-nums">
+                          {pr.estimatedMaxKg}
+                        </span>
+                        <span className="block text-[10px] uppercase tracking-wider text-mist">est. 1RM</span>
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </Rows>
+            </Section>
+          )}
 
           <Section title="Goals" to="/app/goals" action="Manage">
             {activeGoals.length === 0 ? (
